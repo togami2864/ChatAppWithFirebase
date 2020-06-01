@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import firebase from "../config/firebase";
 
@@ -43,6 +44,7 @@ const SignUp = () => {
         </div>
         <button type="submit">Sign Up</button>
       </form>
+      <Link to="/login">Login</Link>
     </div>
   );
 };

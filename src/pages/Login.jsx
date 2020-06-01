@@ -6,21 +6,25 @@ import { Redirect } from "react-router-dom";
 
 import firebase from "../config/firebase";
 
+import { isValidEmail, isValidPassword } from "../validation";
+
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (isValidPassword && isValidEmail) {
+      e.preventDefault();
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          history.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const user = useContext(AuthContext);
@@ -43,6 +47,9 @@ const Login = ({ history }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <span>
+            {isValidEmail(email) ? "" : "正しいEmailを入力してください."}
+          </span>
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -54,6 +61,11 @@ const Login = ({ history }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <span>
+            {isValidPassword(password)
+              ? ""
+              : "正しいパスワードを入力してください"}
+          </span>
         </div>
         <button type="submit">Login</button>
       </form>
