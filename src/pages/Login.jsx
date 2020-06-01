@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { AuthContext } from "../AuthService";
 import { Redirect } from "react-router-dom";
@@ -56,6 +57,7 @@ const Login = ({ history }) => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <Link to="/signup">Sign Up</Link>
     </>
   );
 };
