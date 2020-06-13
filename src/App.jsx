@@ -8,6 +8,7 @@ import Room from "./pages/Room";
 import LoggedInRoute from "./LoggedInRoute";
 
 import { AuthProvider } from "./AuthService";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (
