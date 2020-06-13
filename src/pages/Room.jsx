@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -7,14 +7,20 @@ import { Typography, Container, Button } from "@material-ui/core";
 import { useStyles } from "./styles.js";
 
 import firebase from "../config/firebase";
+import { AuthContext } from "../AuthService";
 
 const Room = () => {
   const styles = useStyles();
   const [messages, setMessages] = useState(null);
+  const [value, setValue] = useState("");
+
+  const user = useContext(AuthContext);
+
   useEffect(() => {
     firebase
       .firestore()
       .collection("messages")
+      .orderBy("date")
       .onSnapshot((snapshot) => {
         const messages = snapshot.docs.map((doc) => {
           return doc.data;
@@ -26,16 +32,21 @@ const Room = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    firebase.firestore().collection("messages").add({
+      user: user.displayName,
+      content: value,
+      date: new Date(),
+    });
     setMessages([
       ...messages,
       {
-        user: "Beppu",
-        email: "dammy@gmail.com",
+        user: user.displayName,
+        email: user.email,
         content: value,
       },
     ]);
   };
-
   return (
     <>
       <Container maxWidth="lg" className={styles.container_room}>
@@ -54,11 +65,11 @@ const Room = () => {
         </div>
         <ul>
           {messages ? (
-            messages.map((message) => {
+            messages.map((message) => (
               <li>
                 {message.user}({message.email}):{message.content}
-              </li>;
-            })
+              </li>
+            ))
           ) : (
             <p>No Message</p>
           )}
@@ -68,6 +79,7 @@ const Room = () => {
         <input
           type="text"
           className={styles.input_room}
+          value={value}
           onChange={(e) => setMessages(e.target.value)}
         />
         <Button type="submit" color="primary" variant="outlined">

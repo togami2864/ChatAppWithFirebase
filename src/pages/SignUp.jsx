@@ -7,16 +7,25 @@ import { useStyles } from "./styles.js";
 
 import firebase from "../config/firebase";
 
-const SignUp = () => {
+const SignUp = ({ history }) => {
   const styles = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        user.updateProfile({
+          displayName: name,
+        });
+      })
+      .then(() => {
+        history.push("login");
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -27,6 +36,19 @@ const SignUp = () => {
         Sign Up
       </Typography>
       <form onSubmit={handleSubmit} className={styles.form}>
+        <div className="form-group">
+          <label htmlFor="name" className={styles.label_email}>
+            Name
+          </label>
+          <TextField
+            type="name"
+            id="name"
+            placeholder="name"
+            fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="email" className={styles.label_email}>
             E-mail
