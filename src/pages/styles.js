@@ -18,10 +18,6 @@ export const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: "80px",
   },
-  form_room: {
-    margin: "0 62.5px 0 200px",
-    width: "1350px",
-  },
   label_email: {
     marginRight: "65px",
   },
@@ -35,10 +31,6 @@ export const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     width: "25ch",
   },
-  input_room: {
-    width: "1215px",
-    display: "inline",
-  },
   link: {
     margin: "20px",
     textAlign: "center",
@@ -49,5 +41,11 @@ export const useStyles = makeStyles((theme) => ({
   header: {
     display: "flex",
     justifyContent: "space-between",
+  },
+  message: {
+    listStyle: "none",
+  },
+  message_user: {
+    fontSize: "24px",
   },
 }));

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-import { Typography, Container, Button } from "@material-ui/core";
+import { Typography, Container, Button, TextField } from "@material-ui/core";
 import { useStyles } from "./styles.js";
 
 import firebase from "../config/firebase";
@@ -23,16 +23,15 @@ const Room = () => {
       .orderBy("date")
       .onSnapshot((snapshot) => {
         const messages = snapshot.docs.map((doc) => {
-          return doc.data;
+          return doc.data();
         });
-
         setMessages(messages);
       });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setValue("");
     firebase.firestore().collection("messages").add({
       user: user.displayName,
       content: value,
@@ -47,6 +46,9 @@ const Room = () => {
       },
     ]);
   };
+
+  const valueIsEmpty = value === "";
+
   return (
     <>
       <Container maxWidth="lg" className={styles.container_room}>
@@ -63,29 +65,41 @@ const Room = () => {
             Logout
           </Button>
         </div>
-        <ul>
+        <ul className={styles.message}>
           {messages ? (
-            messages.map((message) => (
-              <li>
-                {message.user}({message.email}):{message.content}
-              </li>
-            ))
+            messages.map((message, i) => {
+              return (
+                <li key={i}>
+                  <span className={styles.message_user}>{message.user}</span>
+                  <br />
+                  <span>{message.content}</span>
+                </li>
+              );
+            })
           ) : (
             <p>No Message</p>
           )}
         </ul>
       </Container>
-      <form onSubmit={handleSubmit} className={styles.form_room}>
-        <input
-          type="text"
-          className={styles.input_room}
-          value={value}
-          onChange={(e) => setMessages(e.target.value)}
-        />
-        <Button type="submit" color="primary" variant="outlined">
-          送信
-        </Button>
-      </form>
+      <Container>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            type="text"
+            variant="outlined"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <Button
+            type="submit"
+            color="primary"
+            variant="outlined"
+            disabled={valueIsEmpty}
+          >
+            送信
+          </Button>
+        </form>
+      </Container>
     </>
   );
 };
