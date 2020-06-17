@@ -42,8 +42,11 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
-  message: {
+  messages: {
     listStyle: "none",
+  },
+  message: {
+    marginBottom: "15px",
   },
   message_user: {
     fontSize: "24px",

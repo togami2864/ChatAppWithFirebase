@@ -32,6 +32,7 @@ const Room = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setValue("");
+
     firebase.firestore().collection("messages").add({
       user: user.displayName,
       content: value,
@@ -65,14 +66,14 @@ const Room = () => {
             Logout
           </Button>
         </div>
-        <ul className={styles.message}>
+        <ul className={styles.messages}>
           {messages ? (
             messages.map((message, i) => {
               return (
-                <li key={i}>
+                <li key={i} className={styles.message}>
                   <span className={styles.message_user}>{message.user}</span>
                   <br />
-                  <span>{message.content}</span>
+                  <span>{message.content}</span>:
                 </li>
               );
             })
