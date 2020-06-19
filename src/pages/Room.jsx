@@ -79,9 +79,6 @@ const Room = () => {
                 return (
                   <li key={i} className={styles.chatList}>
                     <div className={styles.user}>
-                      <span className={styles.message_user}>
-                        {message.user}
-                      </span>
                       <br />
                       <span className={styles.chatBalloon}></span>
                       <ChatBubbleIcon />
@@ -114,12 +111,12 @@ const Room = () => {
           )}
         </ul>
       </Container>
-      <Container>
+      <Container className={styles.container_input}>
         <form onSubmit={handleSubmit}>
           <TextField
-            fullWidth
             type="text"
             variant="outlined"
+            fullWidth
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
@@ -127,6 +124,7 @@ const Room = () => {
             type="submit"
             color="primary"
             variant="outlined"
+            className={styles.btn_submit}
             disabled={valueIsEmpty}
           >
             送信

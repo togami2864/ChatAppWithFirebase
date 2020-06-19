@@ -29,6 +29,9 @@ const SignUp = ({ history }) => {
       .catch((err) => {
         console.log(err);
       });
+    setEmail("");
+    setPassword("");
+    setName("");
   };
   return (
     <Container maxWidth="sm" className={styles.container}>

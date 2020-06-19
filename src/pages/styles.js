@@ -15,6 +15,9 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: "10vh",
     padding: "20px",
   },
+  container_input: {
+    margin: "30px 0 50px 0",
+  },
   form: {
     marginTop: "80px",
   },
@@ -83,11 +86,11 @@ export const useStyles = makeStyles((theme) => ({
   chatBalloon: {
     width: "15px",
     height: "15px",
-    transform: "rotate(-60deg)",
+    transform: "rotate(-59deg)",
     backgroundColor: "grey",
     display: "inline-block",
     position: "absolute",
-    top: "33px",
+    top: "21px",
     left: "32px",
   },
   chatBalloon_reverse: {
@@ -97,7 +100,11 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "lightGreen",
     display: "inline-block",
     position: "absolute",
-    top: "33px",
+    top: "31px",
     right: "35px",
+  },
+  btn_submit: {
+    display: "block!important",
+    marginLeft: "auto!important",
   },
 }));
