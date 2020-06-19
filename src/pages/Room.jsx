@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Suspense } from "react";
 
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -73,7 +73,7 @@ const Room = () => {
                 <li key={i} className={styles.message}>
                   <span className={styles.message_user}>{message.user}</span>
                   <br />
-                  <span>{message.content}</span>:
+                  <span>{message.content}</span>
                 </li>
               );
             })
