@@ -3,7 +3,14 @@ import React, { useState, useEffect, useContext, Suspense } from "react";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-import { Typography, Container, Button, TextField } from "@material-ui/core";
+import {
+  Typography,
+  Container,
+  Button,
+  TextField,
+  Icon,
+} from "@material-ui/core";
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import { useStyles } from "./styles.js";
 
 import firebase from "../config/firebase";
@@ -49,7 +56,6 @@ const Room = () => {
   };
 
   const valueIsEmpty = value === "";
-
   return (
     <>
       <Container maxWidth="lg" className={styles.container_room}>
@@ -69,13 +75,39 @@ const Room = () => {
         <ul className={styles.messages}>
           {messages ? (
             messages.map((message, i) => {
-              return (
-                <li key={i} className={styles.message}>
-                  <span className={styles.message_user}>{message.user}</span>
-                  <br />
-                  <span>{message.content}</span>
-                </li>
-              );
+              if (user.displayName === message.user) {
+                return (
+                  <li key={i} className={styles.chatList}>
+                    <div className={styles.user}>
+                      <span className={styles.message_user}>
+                        {message.user}
+                      </span>
+                      <br />
+                      <span className={styles.chatBalloon}></span>
+                      <ChatBubbleIcon />
+                      <span className={styles.message}>{message.content}</span>
+                    </div>
+                  </li>
+                );
+              } else if (user.displayName !== message.user) {
+                return (
+                  <li key={i} className={styles.chatList}>
+                    <div className={styles.user_reverse}>
+                      <span className={styles.message_user}>
+                        {message.user}
+                      </span>
+                      <br />
+                      <div>
+                        <span className={styles.chatBalloon_reverse}></span>
+                        <span className={styles.message_reverse}>
+                          {message.content}
+                        </span>
+                        <ChatBubbleIcon />
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
             })
           ) : (
             <p>No Message</p>

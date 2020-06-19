@@ -42,13 +42,62 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
+
+  //Room message関連
   messages: {
     listStyle: "none",
+    paddingTop: "20px",
+    paddingRight: "40px",
   },
-  message: {
+  chatList: {
     marginBottom: "15px",
   },
   message_user: {
     fontSize: "24px",
+  },
+  message: {
+    display: "inline-block",
+    backgroundColor: "grey",
+    color: "white",
+    borderRadius: "10px",
+    minHeight: "40px",
+    verticalAlign: "middle",
+    padding: "10px",
+  },
+  message_reverse: {
+    display: "inline-block",
+    backgroundColor: "lightGreen",
+    color: "black",
+    borderRadius: "10px",
+    minHeight: "40px",
+    verticalAlign: "middle",
+    padding: "10px",
+  },
+  user: {
+    position: "relative",
+  },
+  user_reverse: {
+    textAlign: "right",
+    position: "relative",
+  },
+  chatBalloon: {
+    width: "15px",
+    height: "15px",
+    transform: "rotate(-60deg)",
+    backgroundColor: "grey",
+    display: "inline-block",
+    position: "absolute",
+    top: "33px",
+    left: "32px",
+  },
+  chatBalloon_reverse: {
+    width: "15px",
+    height: "15px",
+    transform: "rotate(60deg)",
+    backgroundColor: "lightGreen",
+    display: "inline-block",
+    position: "absolute",
+    top: "33px",
+    right: "35px",
   },
 }));
